@@ -9,7 +9,7 @@ from subprocess import Popen, DEVNULL, STDOUT
 
 COMMAND_WORD = "beep"
 RECORDING_LIMIT = 60
-LANGUAGE = "en"
+LANGUAGE = "es"
 MODEL = "whisper-1"
 
 parser = argparse.ArgumentParser()
@@ -72,17 +72,14 @@ def stop_audio_capture():
     Popen(['pkill', '-f', 'arecord'], stdout=DEVNULL, stderr=STDOUT)
 
 def main():
-    #get command line params
+    if args.abort:
+        stop_audio_capture()
+        message('Aborted.')
+        return
     
     # Check if process is already running
     if is_process_running():
         stop_audio_capture()
-
-        # Check if user wants to abort
-        if args.abort:
-            message('Aborted.')
-            return
-        
 
         #notification
         message("Processing audio...")
