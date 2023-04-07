@@ -42,7 +42,9 @@ def write_to_os(text):
     
     # Write commands
     for word in commands:
-        word = word.strip()
+        #remove puctuation and spaces around word
+        word = word.strip('.,;:!? ')
+
         os.system('xdotool key "{}"'.format(word))
         time.sleep(0.01)
 
